@@ -1,0 +1,154 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage[scaled=0.96]{helvet} % Sets up Helvetica font
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\titleformat{\section}[hang]{\color{mauve}\normalfont\sffamily\Large}{\thesection}{1em}{}
+\titleformat{\subsection}[hang]{\color{mauve}\normalfont\sffamily\large}{\thesubsection}{1em}{}
+
+
+\title{Homework 3}
+\author{Your Name}
+\date{Due date: October 17 at 2 PM}
+
+\begin{document}
+\maketitle
+
+\section*{Question 1.1 (5 points)}
+
+\begin{itemize}
+    \item Prompt: Calculate (9.11-9.8)/9.8 with 4 decimal places
+    \item Model output: To calculate \((9.11 - 9.8) / 9.8\) with four decimal places:
+
+        1. Subtract \(9.8\) from \(9.11\):
+           \[ 9.11 - 9.8 = 0.31 \]
+        
+        2. Divide \(0.31\) by \(9.8\):
+           \[ \frac{0.31}{9.8} \approx 0.03163265306122449 \]
+        
+        Rounding the result to four decimal places gives:
+        
+        \[ 0.0316 \]
+    \item Result expected: -0.0704
+    \item Relative error rate: 
+    \item Choice of model (if not using GPT-4o): GPT-4o
+\end{itemize}
+
+\section*{Question 1.3.B (Part of 8 points)}
+
+[Describe potential issues with using eval() instead of safe\_eval() here. Max 3 sentences.]
+
+\section*{Question 1.4 (5 points)}
+
+Test accuracy on ASDiv:
+\begin{itemize}
+    \item Without calculator access: [Your result here]
+    \item With calculator access: [Your result here]
+\end{itemize}
+
+\section*{Question 1.5 (6 points)}
+
+\subsection*{1.5.A}
+
+\begin{itemize}
+    \item Example prompt: [Paste prompt here]
+    \item Generation without calculator access: [Paste generation here]
+    \item Generation with calculator access: [Paste generation here]
+    \item Discussion: [Your one-sentence discussion here]
+\end{itemize}
+
+\subsection*{1.5.B}
+
+\begin{itemize}
+    \item Example prompt: [Paste prompt here]
+    \item Generation without calculator access: [Paste generation here]
+    \item Generation with calculator access: [Paste generation here]
+    \item Discussion: [Your one-sentence discussion here]
+\end{itemize}
+
+\section*{Question 2.1.B (Part of 5 points)}
+
+[Explain why last-token pooling is more sound for decoder-only models]
+
+\section*{Question 2.3 (6 points)}
+
+\subsection*{2.3.A}
+
+[Insert your train loss curve image here]
+
+\subsection*{2.3.B}
+
+Mean Reciprocal Rank achieved on the test dataset: [Your result here]
+
+\section*{Question 2.4 (5 points)}
+
+\subsection*{2.4.A}
+
+[Include your pseudo-code for a cross-encoder here]
+
+\subsection*{2.4.B}
+
+\begin{itemize}
+    \item Advantage of bi-encoder: [Your answer here]
+    \item Disadvantage of bi-encoder: [Your answer here]
+\end{itemize}
+
+\subsection*{2.4.C}
+
+[Describe your strategy for using both bi-encoder and cross-encoder in an information retrieval system]
+
+\section*{Question 3.1 (5 points)}
+
+\subsection*{3.1.A}
+
+[Your explanation on whether the chosen language model can answer TOFU questions]
+
+\subsection*{3.1.B}
+
+[Paste the questions and respective completions here]
+
+\section*{Question 3.2 (5 points)}
+
+\subsection*{3.2.B}
+
+[Your comments on the effectiveness of the approach]
+
+\section*{Question 3.3 (5 points)}
+
+\subsection*{3.3.A}
+
+\begin{itemize}
+    \item Advantage of cross-encoders compared to LLM list-wise re-rankers: [Your answer here]
+    \item Disadvantage of cross-encoders compared to LLM list-wise re-rankers: [Your answer here]
+\end{itemize}
+
+\subsection*{3.3.B}
+
+\begin{itemize}
+    \item Results with top-10 passages in-order:
+    [Paste results and comments here]
+    \item  Results with top-10 passages shuffled:
+    [Paste results and comments here]
+\end{itemize}
+
+\section*{Question 4: Use of Generative AI (0 points)}
+
+[Include this section only if you used Generative AI for any part of your homework]
+
+\subsection*{4.1}
+
+[Describe your use of coding assistants, if any]
+
+\subsection*{4.2}
+
+[Include table of chatbot interactions, if any]
+
+\subsection*{4.3}
+
+[Describe any other use of Generative AI, if applicable]
+
+\end{document}
