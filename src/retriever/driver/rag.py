@@ -240,7 +240,7 @@ def main():
 
     with open(args.prefixes) as f:
         prefixes = [(json.loads(line)["prefix"],  json.loads(line)["qid"])for line in f]
-        prefixes = apply_prompt(prefixes, args.augmentation_run, docid_to_text, qid_to_topdocs, top_n=10)
+        prefixes = apply_prompt(prefixes, args.augmentation_run, docid_to_text, qid_to_topdocs, top_n=1)
 
     max_new_tokens = args.max_new_tokens
     temperature = args.temperature
