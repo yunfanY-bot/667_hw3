@@ -139,7 +139,7 @@ def get_rag(query_id, doc2text, query2docs, top_n, shuffle):
     rag_text = []
     for doc_id in top_doc_ids:
         if str(doc_id) in doc2text:
-            rag_text.append(doc2text[str(doc_id)])
+            rag_text.append(doc2text[int(doc_id)])
         else:
             print(f"Warning: document ID {doc_id} not found in doc2text")
 
