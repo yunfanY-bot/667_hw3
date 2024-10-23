@@ -151,7 +151,7 @@ def apply_prompt(prefixes, trec_run, doc2text, query2docs, top_n=1):
 
     for prefix, query_id in prefixes:
         if trec_run is not None:
-            rag = get_rag(query_id, doc2text, query2docs, top_n=top_n, shuffle=True)
+            rag = get_rag(query_id, doc2text, query2docs, top_n=top_n, shuffle=False)
         else:
             rag = ""
             print("no rag")
