@@ -142,8 +142,6 @@ def get_rag(query_id, doc2text, query2docs, top_n, shuffle):
 
 def apply_prompt(prefixes, trec_run, doc2text, query2docs, top_n=10):
     new_prefixes = []
-    # open up a file to write the RAGs to
-    print("hereee")
 
     for prefix, query_id in prefixes:
         if trec_run is not None:
