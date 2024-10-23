@@ -19,7 +19,9 @@ def test_can_use_calculator():
 @max_score(5)
 def test_use_calculator():
     assert use_calculator("") == ""
+    print(use_calculator("Q: How many mugs do I have? A: <<3+2+1>>"))
     assert (
+        
         use_calculator("Q: How many mugs do I have? A: <<3+2+1>>")
         == "Q: How many mugs do I have? A: <<3+2+1>>6"
     )

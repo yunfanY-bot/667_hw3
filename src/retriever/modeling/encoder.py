@@ -59,6 +59,10 @@ class EncoderModel(nn.Module):
     def pooling(self, last_hidden_state, attention_mask):
 
         """
+        implement pooling, which receives the token-level hidden states from the final layer, and returns the pooled representation after applying L2 norm.
+        Hint: By default, the model pads to the right. So you must account for the attention mask when
+        identifying the last token of each sequence in the batch.
+        
         Use the atention mask to find the index of each sequence's last token;
         Perform last-token pooling.
         Apply L2 norm to the embeddings.  
@@ -70,7 +74,16 @@ class EncoderModel(nn.Module):
         Returns:
         - reps: tensor of shape (batch_size, hidden_dim)
         """
-        raise NotImplementedError()
+
+        # Find the index of each sequence's last token
+        last_token_indices = attention_mask.sum(dim=1) - 1
+
+        # Perform last-token pooling
+        last_tokens = last_hidden_state[range(last_token_indices.size(0)), last_token_indices]
+
+        # Apply L2 norm to the embeddings
+        reps = F.normalize(last_tokens, p=2, dim=1)
+        return reps
 
     def encode_text(self, text):
         hidden_states = self.encoder(**text, return_dict=True)
@@ -93,7 +106,7 @@ class EncoderModel(nn.Module):
         Returns:
         - similarity_matrix: tensor of shape (n_queries, n_passages)
         """
-        raise NotImplementedError()
+        return torch.matmul(q_reps, p_reps.transpose(0, 1)) / temperature
 
     def compute_labels(self, n_queries, n_passages):
         """
@@ -122,7 +135,7 @@ class EncoderModel(nn.Module):
         Returns:
         - target: tensor of shape (n_queries)
         """
-        raise NotImplementedError()
+        return torch.arange(n_queries) * (n_passages // n_queries)
     
     def compute_loss(self, scores, target):
         """
@@ -135,7 +148,7 @@ class EncoderModel(nn.Module):
         Returns:
         - loss: mean reduced loss.
         """
-        raise NotImplementedError()
+        return F.cross_entropy(scores, target)
 
     def gradient_checkpointing_enable(self, **kwargs):
         try:

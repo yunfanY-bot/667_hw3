@@ -115,7 +115,10 @@ def get_rag(query_id, doc2text, query2docs, top_n, shuffle):
     Returns:
         str: white-space separeted text of top-N documents.
     """
-    raise NotImplementedError()
+    docs = query2docs[query_id]
+    if shuffle:
+        random.shuffle(docs)
+    return " ".join([doc2text[doc_id] for doc_id in docs[:top_n]])
 
 
 def apply_prompt(prefixes, trec_run, doc2text, query2docs):
@@ -182,14 +185,26 @@ def main():
         dataset = load_dataset('jmvcoelho/toy-corpus', split='train')
         
         docid_to_text = {}
-        raise NotImplementedError()
-        #TODO: parse the huggingface dataset, and populate docid_to_text, mapping the document identifier to its repective content.
+
+        for record in dataset:
+            doc_id = record['docid']
+            content = record['text']
+            docid_to_text[doc_id] = content
 
         qid_to_topdocs = {}
 
         with open(args.augmentation_run, 'r') as h:
-            raise NotImplementedError()
-            #TODO: Read the run file, and populate qid_to_topdocs, mapping query ids to a list of top-document ids.
+            # Read the run file and populate qid_to_topdocs
+            for line in h:
+                # Assuming TREC format: query-id Q0 doc-id rank score run-name
+                parts = line.strip().split()
+                if len(parts) >= 3:
+                    qid = parts[0]
+                    doc_id = parts[2]
+                    if qid not in qid_to_topdocs:
+                        qid_to_topdocs[qid] = []
+                    qid_to_topdocs[qid].append(doc_id)
+
 
 
     else: # this means that RAG won't be performed.

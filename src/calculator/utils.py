@@ -79,6 +79,8 @@ def load_asdiv() -> DatasetDict:
 
 def can_use_calculator(s: str) -> bool:
     """Should we invoke the calculator?
+    can_use_calculator() that returns true if the angular brackets are completed (i.e.,
+    generation ends with “»”), which suggests that the calculator tool can be used.
 
     Args:
         s (str): partial generation
@@ -92,11 +94,16 @@ def can_use_calculator(s: str) -> bool:
     Hint:
         Q1.2
     """
-    return ...
+    return s.endswith(">>")
 
 
 def use_calculator(input: str) -> str:
     """Run calculator on the (potentially not well-formed) string
+    the function that calls a cal-
+    culator (safe_eval) on partial model generation and appends calculator output back to the input. For example,
+    on the input string “Question: Rachel bought 8 music albums ... Answer:«8*2»”, use_calculator()
+    should return “Question: Rachel bought 8 music albums ... Answer:«8*2»16”. Return the input string
+    if it does not end with a well-formed arithmetic expression.
 
     If input contains a well-formed expression, concatenate result of the
       expression to input.
@@ -111,11 +118,13 @@ def use_calculator(input: str) -> str:
     Hint: safe_eval
     """
     try:
-        return ...
+        expr = input.split(">>")[0].split("<<")[1]
+        print("expr: ", expr)
+        result = safe_eval(expr)
+        return input + str(result)
     except:
         # expression not well formed! fall back to next token prediction
-        return ...
-
+        return input
 
 def extract_label(answer: str) -> float:
     try:
