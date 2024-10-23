@@ -115,10 +115,25 @@ def get_rag(query_id, doc2text, query2docs, top_n, shuffle):
     Returns:
         str: white-space separeted text of top-N documents.
     """
-    docs = query2docs[query_id]
+    doc_ids = query2docs.get(query_id, [])
+    
+    if not doc_ids:
+        return ""
+    
+    # Optionally shuffle the document IDs
     if shuffle:
-        random.shuffle(docs)
-    return " ".join([doc2text[doc_id] for doc_id in docs[:top_n]])
+        random.shuffle(doc_ids)
+    
+    # Select the top-N document IDs
+    top_doc_ids = doc_ids[:top_n]
+    
+    # Retrieve the text for each document ID
+    doc_texts = [doc2text[doc_id] for doc_id in top_doc_ids if doc_id in doc2text]
+    
+    # Concatenate the texts with spaces
+    rag_text = ' '.join(doc_texts)
+    
+    return rag_text
 
 
 def apply_prompt(prefixes, trec_run, doc2text, query2docs):
