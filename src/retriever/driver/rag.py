@@ -115,7 +115,7 @@ def get_rag(query_id, doc2text, query2docs, top_n, shuffle):
     Returns:
         str: white-space separeted text of top-N documents.
     """
-    doc_ids = query2docs.get(query_id, [])
+    doc_ids = query2docs[query_id]
     
     if not doc_ids:
         return ""
@@ -132,23 +132,25 @@ def get_rag(query_id, doc2text, query2docs, top_n, shuffle):
     
     # Concatenate the texts with spaces
     rag_text = ' '.join(doc_texts)
-    
     return rag_text
 
 
-def apply_prompt(prefixes, trec_run, doc2text, query2docs):
-
+def apply_prompt(prefixes, trec_run, doc2text, query2docs, top_n=10):
     new_prefixes = []
+    # open up a file to write the RAGs to
+    with open("rag.txt", "w") as f:
 
-    for prefix, query_id in prefixes:
-        if trec_run is not None:
-            rag = get_rag(query_id, doc2text, query2docs, top_n=1, shuffle=False)
-        else:
-            rag = ""
-        
-        new_prefix = f"{rag}<|user|>\nAnswer this question: {prefix}\n<|assistant|>\n"
 
-        new_prefixes.append(new_prefix)
+        for prefix, query_id in prefixes:
+            if trec_run is not None:
+                rag = get_rag(query_id, doc2text, query2docs, top_n=top_n, shuffle=True)
+                f.write(f"RAG for query {query_id}: {rag}\n")
+            else:
+                rag = ""
+            
+            new_prefix = f"{rag}<|user|>\nAnswer this question: {prefix}\n<|assistant|>\n"
+
+            new_prefixes.append(new_prefix)
 
     return new_prefixes
 
@@ -223,12 +225,13 @@ def main():
 
 
     else: # this means that RAG won't be performed.
+        print("RAG won't be performed.")
         docid_to_text = None
         qid_to_topdocs = None
 
     with open(args.prefixes) as f:
         prefixes = [(json.loads(line)["prefix"],  json.loads(line)["qid"])for line in f]
-        prefixes = apply_prompt(prefixes, args.augmentation_run, docid_to_text, qid_to_topdocs)
+        prefixes = apply_prompt(prefixes, args.augmentation_run, docid_to_text, qid_to_topdocs, top_n=10)
 
     max_new_tokens = args.max_new_tokens
     temperature = args.temperature
