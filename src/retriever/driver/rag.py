@@ -135,15 +135,15 @@ def get_rag(query_id, doc2text, query2docs, top_n, shuffle):
 
     
     # Retrieve the text for each document ID, if ID not in doc2text, print a warning
-    doc_texts = [doc2text[str(doc_id)] for doc_id in top_doc_ids if str(doc_id) in doc2text]
 
-    if len(doc_texts) != top_n:
-        print(f"Warning: only {len(doc_texts)} out of {top_n} documents were found in doc2text")
+    rag_text = []
+    for doc_id in top_doc_ids:
+        if str(doc_id) in doc2text:
+            rag_text.append(doc2text[str(doc_id)])
+        else:
+            print(f"Warning: document ID {doc_id} not found in doc2text")
 
-
-    # Concatenate the texts with spaces
-    rag_text = ' '.join(doc_texts)
-    return rag_text
+    return ' '.join(rag_text)
 
 
 def apply_prompt(prefixes, trec_run, doc2text, query2docs, top_n=10):
@@ -152,7 +152,6 @@ def apply_prompt(prefixes, trec_run, doc2text, query2docs, top_n=10):
     for prefix, query_id in prefixes:
         if trec_run is not None:
             rag = get_rag(query_id, doc2text, query2docs, top_n=top_n, shuffle=True)
-            print(f"RAG for query {query_id}: {rag}")
         else:
             rag = ""
             print("no rag")
