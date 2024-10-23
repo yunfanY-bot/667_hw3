@@ -115,10 +115,13 @@ def get_rag(query_id, doc2text, query2docs, top_n, shuffle):
     Returns:
         str: white-space separeted text of top-N documents.
     """
-    
+
     doc_ids = query2docs[str(query_id)]
+
+    print(doc_ids)
     
     if not doc_ids:
+
         return ""
     
     # Optionally shuffle the document IDs
