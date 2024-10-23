@@ -133,6 +133,7 @@ def get_rag(query_id, doc2text, query2docs, top_n, shuffle):
     
     # Retrieve the text for each document ID
     doc_texts = [doc2text[doc_id] for doc_id in top_doc_ids if doc_id in doc2text]
+    print("doc_texts", doc_texts)
     
     # Concatenate the texts with spaces
     rag_text = ' '.join(doc_texts)
