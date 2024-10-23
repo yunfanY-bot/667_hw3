@@ -117,7 +117,7 @@ def get_rag(query_id, doc2text, query2docs, top_n, shuffle):
     """
     print(query2docs)
     print(query_id)
-    doc_ids = query2docs[query_id]
+    doc_ids = query2docs[str(query_id)]
     
     if not doc_ids:
         return ""
