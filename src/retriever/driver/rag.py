@@ -131,10 +131,13 @@ def get_rag(query_id, doc2text, query2docs, top_n, shuffle):
     # Select the top-N document IDs
     top_doc_ids = doc_ids[:top_n]
     
-    # Retrieve the text for each document ID
+    # Retrieve the text for each document ID, if ID not in doc2text, print a warning
     doc_texts = [doc2text[doc_id] for doc_id in top_doc_ids if doc_id in doc2text]
-    print("doc_texts", doc_texts)
-    
+
+    if len(doc_texts) != top_n:
+        print(f"Warning: only {len(doc_texts)} out of {top_n} documents were found in doc2text")
+
+
     # Concatenate the texts with spaces
     rag_text = ' '.join(doc_texts)
     return rag_text
@@ -232,7 +235,6 @@ def main():
         docid_to_text = None
         qid_to_topdocs = None
 
-    print("docid_to_text", docid_to_text)
 
     with open(args.prefixes) as f:
         prefixes = [(json.loads(line)["prefix"],  json.loads(line)["qid"])for line in f]
