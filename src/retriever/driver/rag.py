@@ -146,7 +146,7 @@ def get_rag(query_id, doc2text, query2docs, top_n, shuffle):
     return ' '.join(rag_text)
 
 
-def apply_prompt(prefixes, trec_run, doc2text, query2docs, top_n=10):
+def apply_prompt(prefixes, trec_run, doc2text, query2docs, top_n=1):
     new_prefixes = []
 
     for prefix, query_id in prefixes:
@@ -240,7 +240,7 @@ def main():
 
     with open(args.prefixes) as f:
         prefixes = [(json.loads(line)["prefix"],  json.loads(line)["qid"])for line in f]
-        prefixes = apply_prompt(prefixes, args.augmentation_run, docid_to_text, qid_to_topdocs, top_n=10)
+        prefixes = apply_prompt(prefixes, args.augmentation_run, docid_to_text, qid_to_topdocs, top_n=1)
 
     max_new_tokens = args.max_new_tokens
     temperature = args.temperature
