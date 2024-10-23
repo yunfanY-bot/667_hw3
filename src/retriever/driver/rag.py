@@ -234,6 +234,8 @@ def main():
         docid_to_text = None
         qid_to_topdocs = None
 
+    print("docid_to_text", docid_to_text)
+
     with open(args.prefixes) as f:
         prefixes = [(json.loads(line)["prefix"],  json.loads(line)["qid"])for line in f]
         prefixes = apply_prompt(prefixes, args.augmentation_run, docid_to_text, qid_to_topdocs, top_n=10)
