@@ -132,7 +132,7 @@ def get_rag(query_id, doc2text, query2docs, top_n, shuffle):
     top_doc_ids = doc_ids[:top_n]
     
     # Retrieve the text for each document ID, if ID not in doc2text, print a warning
-    doc_texts = [doc2text[doc_id] for doc_id in top_doc_ids if doc_id in doc2text]
+    doc_texts = [doc2text[str(doc_id)] for doc_id in top_doc_ids if str(doc_id) in doc2text]
 
     if len(doc_texts) != top_n:
         print(f"Warning: only {len(doc_texts)} out of {top_n} documents were found in doc2text")
